@@ -1,13 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import DetailView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, CreateView, UpdateView
 from cities.forms import HtmlForm, CityForm
 from cities.models import City
 
-__all__ = (
-    'home',
-    'CityDetailView',
-    'add_city',
-)
 
 
 def index(request):
@@ -15,7 +11,7 @@ def index(request):
 
 
 def home(request):
-    form = HtmlForm()
+    form = CityForm()
     list_cities = City.objects.all()
     context = {'objects_list': list_cities, 'form': form}
     return render(request, 'cities/home.html', context)
@@ -32,3 +28,15 @@ def add_city(request):
         if form.is_valid():
             form.save()
     return redirect('cities:home')
+
+class CityCreateView(CreateView):
+    model = City
+    form_class = CityForm
+    template_name = 'cities/create.html'
+    success_url = reverse_lazy('cities:home')
+
+class CityUpdateView(UpdateView):
+    model = City
+    form_class = CityForm
+    template_name = 'cities/update.html'
+    success_url = reverse_lazy('cities:home')

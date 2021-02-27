@@ -10,10 +10,16 @@
         {% endfor %}
     </div>
 </div>
-
-<form method="post" action="{% url 'cities:add_city' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Создать">
-</form>
+<!--
+<div class="card col-md-4">
+  <div class="card-body">
+    <form method="post" action="{% url 'cities:create' %}">
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-dark" value="Создать">
+        </div>
+    </form>
+  </div>
+</div>-->
 {% endblock %}
