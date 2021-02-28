@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from travel import views as travel
-from cities import views as city
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cities/', include(('cities.urls', 'cities'))),
+    path('trains/', include(('trains.urls', 'trains'))),
     path('', travel.home,  name='home'),
 ]
