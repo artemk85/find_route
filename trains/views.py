@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
@@ -20,21 +21,21 @@ class TrainsDetailView(DetailView):
     queryset = Train.objects.all()
     template_name = 'trains/detail.html'
 
-class TrainsCreateView(SuccessMessageMixin, CreateView):
+class TrainsCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Train
     form_class = TrainsForm
     template_name = 'trains/create.html'
     success_url = reverse_lazy('trains:home')
     success_message = "Поезд успешно создан."
 
-class TrainsUpdateView(SuccessMessageMixin, UpdateView):
+class TrainsUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Train
     form_class = TrainsForm
     template_name = 'trains/update.html'
     success_url = reverse_lazy('trains:home')
     success_message = "Поезд успешно изменен."
 
-class TrainsDeleteView(SuccessMessageMixin, DeleteView):
+class TrainsDeleteView(SuccessMessageMixin, LoginRequiredMixin,  DeleteView):
     model = Train
     #template_name = 'trains/delete.html'
     success_url = reverse_lazy('trains:home')
